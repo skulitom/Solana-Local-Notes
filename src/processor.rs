@@ -1,6 +1,7 @@
 use crate::error::ReviewError;
 use crate::instruction::NoteInstructions;
 use crate::state::{NoteState};
+use crate::utils::Coord;
 use borsh::BorshSerialize;
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
@@ -37,10 +38,11 @@ pub fn add_new_note(
     accounts: &[AccountInfo],
     title: String,
     text: String,
-    latitude: f32,
-    longitude: f32,
+    latitude: Coord,
+    longitude: Coord,
 ) -> ProgramResult {
-    msg!("Creating new note");
+    msg!("Creating new note with latitude {} and longitude {}", latitude, longitude);
+    msg!("Title {} and Text {}", title, text);
 
     let account_info_iter = &mut accounts.iter();
 
@@ -107,6 +109,7 @@ pub fn add_new_note(
     account_data.discriminator = NoteState::DISCRIMINATOR.to_string();
     account_data.creator = *initializer.key;
     account_data.title = title;
+    account_data.text = text;
     account_data.latitude = latitude;
     account_data.longitude = longitude;
     account_data.is_initialized = true;

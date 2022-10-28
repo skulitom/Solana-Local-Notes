@@ -1,12 +1,13 @@
 use borsh::BorshDeserialize;
 use solana_program::program_error::ProgramError;
+use crate::utils::Coord;
 
 pub enum NoteInstructions {
     AddNote {
         title: String,
         text: String,
-        latitude: f32,
-        longitude: f32,
+        latitude: Coord,
+        longitude: Coord,
     },
 }
 
@@ -14,8 +15,8 @@ pub enum NoteInstructions {
 struct NotePayload {
     title: String,
     text: String,
-    latitude: f32,
-    longitude: f32,
+    latitude: Coord,
+    longitude: Coord,
 }
 
 impl NoteInstructions {

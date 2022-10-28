@@ -4,6 +4,8 @@ use solana_program::{
     pubkey::Pubkey,
 };
 
+use crate::utils::Coord;
+
 #[derive(BorshSerialize, BorshDeserialize)]
 pub struct NoteState {
     pub discriminator: String,
@@ -11,8 +13,8 @@ pub struct NoteState {
     pub creator: Pubkey,
     pub title: String,
     pub text: String,
-    pub latitude: f32,
-    pub longitude: f32,
+    pub latitude: Coord,
+    pub longitude: Coord,
 }
 
 impl Sealed for NoteState {}
